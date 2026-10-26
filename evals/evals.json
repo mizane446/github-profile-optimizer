@@ -1,0 +1,17 @@
+{
+  "skill_name": "github-profile-optimizer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "帮我美化一下 GitHub 主页，账号 octocat。只生成不发布（dry run）。看到样例后选 2 极简文字，语言中英混排。",
+      "expected_output": "第一步发风格样例链接，不先问抽象问题；只问语言；按样例版式生成 README.md 和简介，样例里用户没有的板块换成项目或 PR；只写有依据的事实；图片自检；不授权、不发布。",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "帮我写个 GitHub profile README，给招聘方看，账号 octocat。dry run。风格选 3 数据卡片，语言全英文。",
+      "expected_output": "提醒数据少时卡片会显空并建议综合展示，用户坚持则照做；允许写求职方向；不出现手机号、邮箱；产物落在 github-profile 目录；不推送、不改简介。",
+      "files": []
+    }
+  ]
+}
