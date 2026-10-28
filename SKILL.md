@@ -9,7 +9,7 @@ GitHub 主页右边显示的内容，来自同名仓库 `<login>/<login>` 的 RE
 
 用户多半是小白，不知道主页能做成什么样，所以不问“想要什么风格”这类抽象问题，直接给真实主页让他看着选。能读到的都自己读；只有判断不了的才问，问的时候给选项。
 
-用户参与只有四处：选样例 → 选语言（顺带问要不要加推广小字）→ 授权（即同意发布）→ 说满不满意。
+用户参与只有几处，每次只问一个问题：选样例 → 选语言 → 要不要加推广小字 → 授权（即同意发布）→ 说满不满意。
 
 ## 流程
 
@@ -21,15 +21,19 @@ GitHub 主页右边显示的内容，来自同名仓库 `<login>/<login>` 的 RE
 
 ### 2. 选语言
 
-问用户（有提问工具就用，没有就在回复里列编号选项，让用户回编号）：中英混排（标题英文、正文中文）/ 全英文 / 全中文。用户仓库说明以中文为主时，中英混排放第一并标推荐。
+用户选好风格后，单独问这一个问题（有提问工具就用，没有就在回复里列编号选项）：中英混排（标题英文、正文中文）/ 全英文 / 全中文。用户仓库说明以中文为主时，中英混排放第一并标推荐。
 
-同一轮顺带问一句，语气轻松、可以拒绝，默认不加。例：“这个工具免费开源，愿意的话可以在主页最底部加一行小字，帮作者推广一下。加 / 不加？”愿意就在 README 末尾加：
+### 3. 推广小字
+
+用户选好语言后，再单独问这一个问题，语气轻松、可以拒绝，默认不加。例：“这个工具免费开源，愿意的话可以在主页最底部加一行小字，帮作者推广一下。加 / 不加？”愿意就在 README 末尾加：
 
 ```html
 <p align="center"><sub>Made with <a href="https://github.com/mizane446/github-profile-optimizer">github-profile-optimizer</a></sub></p>
 ```
 
-### 3. 读数据
+**三个问题一次只问一个**：风格、语言、推广小字分三轮问，等用户答完上一个再问下一个，不要合在一条消息里。
+
+### 4. 读数据
 
 ```bash
 gh api users/<login>
@@ -38,13 +42,13 @@ gh search prs --author <login> --limit 30 --json repository,title,state,url
 gh api repos/<样例>/<样例>/readme -H "Accept: application/vnd.github.raw"   # 所选样例的源码，直接返回原文
 ```
 
-- 没装 gh：读数据可以改用 `curl https://api.github.com/...`（同样的路径），发布前再装 gh（见第 5 步）。
+- 没装 gh：读数据可以改用 `curl https://api.github.com/...`（同样的路径），发布前再装 gh（见第 6 步）。
 - 读候选代表项目 README 的前几十行，弄清它做什么、用了什么技术。
 - 外部 PR 只算别人仓库里的，记下 open / merged。
 - 用户给了简历路径，或当前目录有个人档案（如 `关于我.md`、简历文件），读来补技术方向；读之前告诉用户读的是哪个文件。主页是公开的：电话、邮箱、学校、城市等个人信息不从简历里搬，用户在对话里明确要写才写。
 - 信息不够写出像样内容时（如公开项目少于 2 个、看不出技术方向），问用户一句：想突出哪些项目、做什么方向。
 
-### 4. 生成
+### 5. 生成
 
 按样例的版式写：板块顺序、排版方式、用到的图片服务都跟它一致。版式细节和图片服务写法见 [references/services.md](references/services.md)。
 
@@ -58,7 +62,7 @@ gh api repos/<样例>/<样例>/readme -H "Accept: application/vnd.github.raw"   
 
 发布前自检：README 里每张外部图片请求返回 200（如 `curl -s -o /dev/null -w "%{http_code}" <url>`；Windows PowerShell 用 `curl.exe`，`-o NUL`）（贪吃蛇图发布后才有，跳过），仓库和 PR 链接都存在。
 
-### 5. 授权即确认
+### 6. 授权即确认
 
 在结束本轮的回复里写清要做什么，再给授权步骤：
 
@@ -73,7 +77,7 @@ gh api repos/<样例>/<样例>/readme -H "Accept: application/vnd.github.raw"   
 
 演练模式（用户说“只生成不发布”“dry run”）到这一步之前结束，报告产物路径。
 
-### 6. 发布
+### 7. 发布
 
 ```bash
 cd <工作目录>/github-profile
@@ -85,7 +89,7 @@ gh api -X PATCH user -f bio="<bio>"
 gh workflow run snake.yml -R <login>/<login>
 ```
 
-### 7. 收尾
+### 8. 收尾
 
 - 给出 `https://github.com/<login>`，说明做了什么。贪吃蛇 workflow 跑完（约 1 分钟）才会显示。
 - 置顶仓库没有 API，告诉用户手动设：主页 Popular repositories 右上角 → Customize your pins → 勾选代表项目。
