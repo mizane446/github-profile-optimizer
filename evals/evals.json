@@ -4,13 +4,19 @@
     {
       "id": 1,
       "prompt": "帮我美化一下 GitHub 主页，账号 octocat。只生成不发布（dry run）。看到样例后选 2 极简文字，语言中英混排。",
-      "expected_output": "第一步发风格样例链接，不先问抽象问题；只问语言；按样例版式生成 README.md 和简介，样例里用户没有的板块换成项目或 PR；只写有依据的事实；图片自检；不授权、不发布。",
+      "expected_output": "Replies in Chinese. First sends the style example links instead of abstract questions; asks the four questions in one window; generates README.md and bio following the example's layout, replacing sections the user lacks with projects or PRs; only sourced facts; image self-check; no authorization, no publishing.",
       "files": []
     },
     {
       "id": 2,
       "prompt": "帮我写个 GitHub profile README，给招聘方看，账号 octocat。dry run。风格选 3 数据卡片，语言全英文。",
-      "expected_output": "提醒数据少时卡片会显空并建议综合展示，用户坚持则照做；允许写求职方向；不出现手机号、邮箱；产物落在 github-profile 目录；不推送、不改简介。",
+      "expected_output": "Replies in Chinese, README in English. Warns that cards look empty with little data and suggests Comprehensive, follows the user if they insist; may mention job direction; no phone or email; output lands in the github-profile directory; no push, bio unchanged.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Make my GitHub profile look like the pros. Username octocat. Dry run only. I'll pick style 1, English only, for technical peers, no credit line.",
+      "expected_output": "Replies in English. Language options offer English first, not Chinese-mixed as recommended; README in English following the Comprehensive layout; no job-seeking wording; no publishing.",
       "files": []
     }
   ]
