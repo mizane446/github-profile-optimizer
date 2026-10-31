@@ -1,9 +1,49 @@
 ---
 name: github-profile-optimizer
-description: 一站式优化 GitHub 个人主页：先给用户看几种风格的真实主页（每种两个，点开即上线后的样子），用户在一个窗口里选风格、语言、给谁看，其余全部自动完成——读取公开仓库、PR 和本地简历，按所选主页的版式写出 Profile README（同名仓库）、简介和贡献贪吃蛇，自检后引导 gh 授权并发布。用户说“优化/美化/做一个 GitHub 主页”“主页不好看”“写 profile README”“像大佬那样的 GitHub 首页”“改 GitHub 简介”时都应使用，即使没提 README 这个词。不用于给某个具体项目写 README，也不用于找开源项目贡献。
+description: One-stop GitHub profile optimization — show users real profile examples (2 per style), let them pick style/language/audience in one window, then automate everything else: read public repos & PRs, generate Profile README (username/username repo) matching the chosen layout, write bio and contribution snake, verify links/images, guide gh auth and publish. Use when user says “optimize/beautify GitHub profile”, “profile looks bad”, “write profile README”, “GitHub homepage like the pros”, “update GitHub bio” — even without mentioning README. Not for project READMEs or finding open-source contributions. | 一站式优化 GitHub 个人主页：先给用户看几种风格的真实主页（每种两个，点开即上线后的样子），用户在一个窗口里选风格、语言、给谁看,其余全部自动完成——读取公开仓库、PR 和本地简历，按所选主页的版式写出 Profile README（同名仓库）、简介和贡献贪吃蛇，自检后引导 gh 授权并发布。用户说”优化/美化/做一个 GitHub 主页””主页不好看””写 profile README””像大佬那样的 GitHub 首页””改 GitHub 简介”时都应使用，即使没提 README 这个词。不用于给某个具体项目写 README，也不用于找开源项目贡献。
 ---
 
-# GitHub 主页优化
+# GitHub Profile Optimizer
+
+**English**: Transform your GitHub profile into a pro-level showcase in one conversation.
+
+**中文**：一句话，让你的 GitHub 主页变成大佬同款。
+
+---
+
+## English Workflow
+
+This skill automates GitHub profile optimization through a guided conversation:
+
+1. **Style Selection**: Show 4 style categories with real live examples. User picks one or provides their own reference URL.
+2. **Customization**: Ask language preference (mixed EN/ZH, full English, full Chinese), target audience (peers, recruiters, open-source community), and promotional credit opt-in.
+3. **Data Gathering**: Read user's public repos, merged PRs, and local resume (if provided) via `gh` CLI. Extract representative projects and tech stack.
+4. **Generation**: Write Profile README matching the chosen style's layout, craft concise bio (3–5 keywords), set up daily contribution snake via GitHub Actions.
+5. **Validation**: Verify all external images return 200, check repo/PR links exist. Backup old profile before publishing.
+6. **Authorization & Publishing**: Guide user through `gh auth` device flow, create/update `username/username` repo, update bio, enable snake workflow.
+7. **Satisfaction Check**: Ask if user wants adjustments (simpler, different style, rollback to backup).
+
+**Key Rules**:
+- Content is fact-based: merged PRs only, no invented stats, exclude private repos.
+- Layout follows chosen example's structure (section order, image services, formatting).
+- Sections not applicable to user (e.g., blog, npm packages) are replaced with relevant content (projects, PRs, tech stack).
+- Personal info (school, city, email, phone) only included if user explicitly requests it in conversation.
+- Representative projects: 3–6 public, non-fork repos aligned with user's main tech direction.
+- Bio is concise: 3–5 keywords separated by “ · “, fitting in ~60 characters (e.g., `Building LLM Agents · Multi-Agent · RAG`).
+
+**Commands**:
+```bash
+gh api users/<login>
+gh repo list <login> --limit 100 --json name,description,primaryLanguage,stargazerCount,isFork,isPrivate
+gh search prs --author <login> --limit 30 --json repository,title,state,url
+gh api repos/<example-owner>/<example-repo>/readme -H “Accept: application/vnd.github.raw”  # Fetch example README source
+```
+
+For detailed Chinese workflow, see below.
+
+---
+
+# GitHub 主页优化（中文详细流程）
 
 GitHub 主页右边显示的内容，来自同名仓库 `<login>/<login>` 的 README.md；左边是头像和简介（bio）。花哨效果都是 README 里引用的图片服务或 GitHub Actions 生成的图。
 
