@@ -9,6 +9,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Claude Code Skill](https://img.shields.io/badge/Claude%20Code-Skill-d97757)](https://docs.claude.com/en/docs/claude-code/skills)
+[![Github Profile Optimizer on AI Agents Listing](https://aiagentslisting.com/github-profile-optimizer/badge.svg?claim=ec61be463ea86aa88ce92088e12db8fe)](https://aiagentslisting.com/mcp/github-profile-optimizer)
 
 No README expertise required. No badge wizardry needed.<br>
 Pick a style you like from real examples, and AI handles the rest—<br>
